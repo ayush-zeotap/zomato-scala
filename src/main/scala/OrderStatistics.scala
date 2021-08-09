@@ -50,7 +50,7 @@ class OrderStatistics(val orderReader: OrderReader) {
   }
 
   def noOfRestaurantsForCuisine() = {
-    order.map(ord => (parseStringToItemsList(ord.typesOfCuisines), ord.restaurantName)).flatMap {
+    order.map(ord => (parseStringToItemsList(ord.typesOfCuisines).map(_.trim), ord.restaurantName)).flatMap {
       case (k, v) => k.map(_ -> v)
     }.groupBy(_._1).map {
       case (k, v) => (k, v.length)
